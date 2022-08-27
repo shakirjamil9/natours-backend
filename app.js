@@ -1,10 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const fs = require('fs');
+const cors = require('cors');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 
 const app = express();
+app.use(cors());
 
 app.use(
   morgan('tiny', {
