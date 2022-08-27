@@ -80,3 +80,6 @@ GET /img/tour-5-2.jpg 404 155 - 0.461 ms
 GET /img/tour-5-1.jpg 404 155 - 1.408 ms
 GET /img/pin.png 304 - - 0.868 ms
 GET / 404 139 - 1.715 ms
+POST /api/v1/tours 400 51 - 17.575 ms
+POST /api/v1/tours 201 66 - 2.214 ms
+GET /api/v1/tours 200 1936 - 3.925 ms
