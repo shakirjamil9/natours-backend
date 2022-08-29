@@ -10,9 +10,12 @@ const {
   deleteTour,
   // checkID,
   // checkBody,
+  aliasingTours,
 } = require('../controllers/tourController');
 
 // router.param('id', checkID);
+
+router.route('/top-5-cheap').get(aliasingTours, getAllTours);
 
 router.route('/').get(getAllTours).post(createTour);
 router.route('/:id').get(getSingleTour).patch(updateTour).delete(deleteTour);
