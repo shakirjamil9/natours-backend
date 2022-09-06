@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const tourScheme = new mongoose.Schema(
   {
@@ -80,6 +81,11 @@ const tourScheme = new mongoose.Schema(
     // toObject: { virtuals: true },
   }
 );
+
+tourScheme.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
 
 tourScheme.virtual('durationWeeks').get(function () {
   return this.duration / 7;
