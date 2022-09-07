@@ -71,10 +71,10 @@ const tourScheme = new mongoose.Schema(
       select: false,
     },
     startDates: [Date],
-    // secretTour: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    secretTour: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -85,6 +85,21 @@ const tourScheme = new mongoose.Schema(
 tourScheme.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
+});
+
+// tourScheme.pre('find', function (next) {
+//   this.find({ secretTour: { $ne: true } });
+//   next();
+// });
+
+// methods starts with find e.g, find(), findOne(), findById()
+tourScheme.pre(/^find/, function (next) {
+  this.find({ secretTour: { $ne: true } });
+  next();
+});
+
+tourScheme.pre('aggregate', function () {
+  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
 });
 
 tourScheme.virtual('durationWeeks').get(function () {
