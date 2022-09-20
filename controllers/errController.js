@@ -38,7 +38,7 @@ const sendProdErr = (err, res) => {
   if (err.isOperational) {
     res.status(err.statusCode).json({
       status: err.status,
-      message: err.message,
+      message: err.message || '',
     });
   } else {
     console.error('ERROR 🎇', err);
@@ -57,7 +57,8 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendDevErr(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    let error = JSON.parse(JSON.stringify(err)); // copying err
+    // let error = JSON.parse(JSON.stringify(err)); // copying err
+    let error = Object.create(err);
 
     if (error.name === 'CastError') {
       error = handleCastErrDB(error);

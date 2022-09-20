@@ -27,12 +27,12 @@ app.use(express.static(`${__dirname}/public`));
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
-app.all('*', (req, res, next) => {
+app.all('*', (req, res, next) =>
   // const err = new Error(`Can't find ${req.originalUrl} on the server!`);
   // err.status = 'fail';
   // err.statusCode = 404;
-  next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));
-});
+  next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404))
+);
 
 app.use(globalErrHandler);
 
