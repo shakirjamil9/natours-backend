@@ -11,8 +11,11 @@ const {
   aliasingTours,
   getTourStats,
   getMonthlyPlan,
+  dataRestore,
 } = require('../controllers/tourController');
 const authController = require('../controllers/authController');
+
+router.route('/restore').get(dataRestore);
 
 router.route('/monthly-plan/:year').get(getMonthlyPlan);
 
