@@ -2,7 +2,6 @@ const Tour = require('../models/tourModel');
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const { importData } = require('../dev-data/data/import-dev-data');
 
 exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
   const year = req.params.year * 1;
@@ -134,14 +133,6 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
 
   res.status(204).json({
     status: 'success',
-    data: null,
-  });
-});
-
-exports.dataRestore = catchAsync(async (req, res) => {
-  importData();
-  res.status(201).json({
-    status: 'Data Loaded in Database',
     data: null,
   });
 });
