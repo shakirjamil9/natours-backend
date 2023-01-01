@@ -30,6 +30,8 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
+// this is a test line in test branch
+
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
