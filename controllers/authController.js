@@ -39,7 +39,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     role: req.body.role,
     // passwordChangedAt: req.body.passwordChangedAt,
   });
-  // test
+
   const token = signToken(newUser._id);
 
   res.status(201).json({
