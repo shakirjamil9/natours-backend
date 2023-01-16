@@ -185,8 +185,10 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   currentUser.password = req.body.password;
   await currentUser.save({ validateBeforeSave: false });
 
+  const token = signToken(currentUser._id);
+
   res.status(200).json({
     status: 'success',
-    message: 'Password updated',
+    token,
   });
 });
