@@ -2,12 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 const fs = require('fs');
 const cors = require('cors');
+const helmet = require('helmet');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const AppError = require('./utils/appError');
 const globalErrHandler = require('./controllers/errController');
 
 const app = express();
+
+app.use(helmet());
+
 app.use(cors());
 
 app.use(
