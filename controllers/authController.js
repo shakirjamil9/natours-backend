@@ -26,6 +26,14 @@ exports.login = catchAsync(async (req, res, next) => {
 
   const token = signToken(user._id);
 
+  const cookieOptions = {
+    expiresIn: new Date(Date.now()) + process.env.JWT_COOKIE_EXPIRES,
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  res.cookie('jwt', token, cookieOptions);
+
   res.status(200).json({
     status: 'success',
     token,
@@ -45,6 +53,14 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   const token = signToken(newUser._id);
+
+  const cookieOptions = {
+    expiresIn: new Date(Date.now()) + process.env.JWT_COOKIE_EXPIRES,
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  res.cookie('jwt', token, cookieOptions);
 
   res.status(201).json({
     status: 'success',

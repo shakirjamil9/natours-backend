@@ -1,4 +1,5 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const authController = require('../controllers/authController');
 
 const router = express.Router();
@@ -12,7 +13,13 @@ const {
 } = require('../controllers/userController');
 
 router.post('/signup', authController.signup);
-router.post('/login', authController.login);
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 3,
+  message: 'Too many requests. Try again in 15 minutes',
+});
+router.post('/login', loginLimiter, authController.login);
 
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
