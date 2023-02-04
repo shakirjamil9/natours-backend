@@ -13,12 +13,12 @@ const {
 } = require('../controllers/userController');
 
 router.post('/signup', authController.signup);
-
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 3,
   message: 'Too many requests. Try again in 15 minutes',
 });
+
 router.post('/login', loginLimiter, authController.login);
 
 router.post('/forgotPassword', authController.forgotPassword);
